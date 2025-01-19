@@ -1,0 +1,692 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --color-primary: rgb(15, 89, 193);
+  --color-primary-variant: rgb(11, 175, 207);
+  --color-gray-0: #fff;
+  --color-gray-100: #eee;
+
+  --color-gray-200: #ccc;
+  --color-gray-300: #bbb;
+  --color-gray-400: #999;
+  --color-gray-500: #777;
+  --color-gray-600: #555;
+  --color-gray-700: #333;
+  --color-gray-800: #111;
+  --color-gray-900: #000;
+
+  --color-danger: rgb(246, 67, 67);
+  --color-succes: rgb(6, 164, 101);
+
+  --radius-1: 0.4rem;
+  --radius-2: 0.8rem;
+  --radius-3: 1.2rem;
+  --radius-4: 1.6rem;
+  --radius-5: 2rem;
+
+  --container-w-lg: 80%;
+  --container-w-sm: 94%;
+  --transition: all 300ms ease;
+}
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  border: 0;
+  box-sizing: border-box;
+}
+.dark {
+  --color-gray-0: #0e0d14;
+  --color-gray-100: #2f2b42;
+  --color-gray-200: #45405e;
+  --color-gray-300: #7b7b7b;
+  --color-gray-400: #919191;
+  --color-gray-500: #a1a1a1;
+  --color-gray-600: #c0c0c0;
+  --color-gray-700: #e6e5e5;
+  --color-gray-800: #fafafa;
+  --color-gray-900: #fff;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  line-height: 1.6;
+}
+.container {
+  width: var(--container-w-lg);
+  margin-inline: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.1;
+  color: var(--color-gray-900);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+h1 {
+  font-size: 1.6rem;
+}
+h2 {
+  font-size: 1.3rem;
+}
+h3 {
+  font-size: 1.1rem;
+}
+h4 {
+  font-size: 0.9rem;
+}
+h5 {
+  font-size: 0.75em;
+}
+h6 {
+  font-size: 0.6rem;
+}
+a {
+  font-size: 0.8rem;
+}
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+button {
+  cursor: pointer;
+}
+.btn {
+  width: fit-content;
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
+  font-weight: 600;
+  padding: 1rem, 2rem;
+  text-align: center;
+  border-radius: var(--radius-1);
+  transition: var(--transition);
+}
+.btn.primary {
+  background: var(--color-primary);
+  color: white;
+  
+}
+.btn.danger {
+  background: var(--color-danger);
+  color: white;
+}
+.btn.sm {
+  padding: 0.5rem, 1.2rem;
+}
+.btn{
+  width: 100px; /* Adjust the button width */
+  height: 50px;
+}
+.btn.full{
+  width: 100%;
+}
+.btn:hover {
+  background: var(--color-gray-900);
+  color: var(--color-gray-0);
+}
+
+/*=========================  ERRO PAGE STYLING =====================*/
+
+.errorPage {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: var(--color-gray-0);
+}
+.errorPage_container {
+  width: 30rem;
+  text-align: center;
+}
+.errorPage_container h1 {
+  font-size: 4rem;
+}
+
+/*=========================  NAVBAR CSS =====================*/
+nav {
+  background: var(--color-primary);
+  display: grid;
+  place-items: center;
+  height: 3rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
+}
+.nav_container * {
+  color: white;
+}
+.nav_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav_container div {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+.nav_logo {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.nav_toggle-btn {
+  background: transparent;
+  font-size: 1.8rem;
+  display: none;
+}
+.nav_container a {
+  transition: var(--transition);
+}
+.nav_container a:hover {
+  color: var(--color-primary-variant);
+}
+.nav_container menu {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+.theme_toggle-btn {
+  background: transparent;
+  font-size: 1.5rem;
+  display: flex;
+  transition: var(--transition);
+}
+.theme_toggle-btn:hover {
+  opacity: 0.75;
+}
+/*=========================  REGISTER CSS   =====================*/
+.register{
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.register_container{
+  width: 35rem;
+  background: var(--color-gray-0);
+  padding: 3rem;
+  border-radius: var(--radius-5);
+}
+.register_container h2{
+  margin-bottom: 2rem;
+  color: var(--color-primary);
+}
+.register form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.register form input{
+  padding: 0.7rem;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-1);
+  color: var(--color-gray-900);
+}
+.register form p > a{
+  color: var(--color-primary);
+  font-weight: 600;
+}
+.form_error-message{
+  background: var(--color-danger);
+  color: var(--color-gray-0);
+  padding: 0.6rem 1.5rem ;
+  border-radius: var(--radius-1);
+}
+/*=========================  RESULT CSS   =====================*/
+.results{
+  margin: 5rem 0;
+  width: 58rem;
+  margin-inline: auto;
+}
+.results_container{
+  display: flex;
+  flex-direction: column;
+}
+.result{
+  background: var(--color-gray-0);
+  border-radius: var(--radius-4);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.result_header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-gray-100);
+  border: 0.5rem solid var(--color-gray-0);
+  border-radius: 1.5rem 1.5rem  0 0;
+}
+.result_header-image{
+  width: 3rem;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 1.5rem;
+}
+.result_header h4{
+  padding: 1.5rem;
+}
+.result_list{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  padding-top: 1rem;
+}
+.result_candidate{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.result_candidate-image{
+  height: 3.5rem;
+  aspect-ratio: 1/1;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.result_candidate-info{
+  width: 100%;
+}
+.result_candidate-rating{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.result_candidate-loader{
+  display: block;
+  width: 100%;
+  height: 0.4rem;
+  background: var(--color-gray-100);
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.result_candidate-loader span{
+  background: linear-gradient(90deg,var(--color-primary),var(--color-primary-variant));
+  height: 100%;
+  display: block;
+
+}
+/*=========================  Candidates CSS   =====================*/
+.candidates{
+  margin: 5rem 0;
+}
+.candidates_header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 60%;
+  margin-inline: auto;
+}
+.candidates_header p{
+  margin-bottom: 3rem;
+}
+.candidates_header p .btn.primary{
+  justify-content: center;
+}
+.candidates_container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem,1fe));
+  gap: 3rem;
+}
+.candidate{
+  background: var(--color-gray-0);
+  text-align: center;
+  border-radius: var(--radius-3);
+  padding-bottom: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 0.5rem rgba(0,0,0,0.1);
+  border: 0.5rem solid var(--color-danger);
+  transition: var(--transition);
+}
+.candidate:hover{
+  box-shadow: none;
+  border-color: var(--color-gray-100);
+}
+.candidate_image{
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  margin-inline: auto;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+.candidate small{
+  display: block;
+  margin: 0.5rem 0 1rem;
+
+}
+/*=========================  MODALS =====================*/
+.modal{
+  backdrop-filter: blur(5px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0,0,0,0.7);
+  display: grid;
+  place-items: center;
+}
+.modal_content{
+  background: var(--color-gray-0);
+  width: 35rem;
+  border-radius: var(--radius-5);
+  overflow: hidden;
+}
+.modal_header{
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+}
+.modal h4{
+  color: white;
+}
+.modal_header button{
+  background: transparent;
+  font-size: 1.8rem;
+  color: white;
+}
+.modal_content form{
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  padding-bottom: 3rem;
+}
+.modal_content form input{
+  margin-top: 0.6rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-1);
+  color: var(--color-gray-900);
+}
+
+/*========================= CONFIRM VOTES MODALS =====================*/
+.confirm_vote-content{
+  text-align: center;
+  border-radius: var(--radius-3);
+}
+.dark.confirm_vote-content{
+  background: #211f2e;
+}
+.confirm_vote-content h5{
+  margin: 2rem 0;
+  color: var(--color-primary);
+}
+.confirm_vote-image{
+  width: 15rem;
+  aspect-ratio: 1/1;
+  margin-inline: auto;
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.confirm_vote-content p{
+  margin: 0.4rem 0 2.5rem;
+  padding: 0 2rem;
+}
+.confirm_vote-cta{
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-inline: auto;  
+  margin-bottom: 2rem;
+}
+.dark.confirm_vote-cta.btn{
+  color: white;
+}
+
+/*========================= CONGRATS CSS THE  =====================*/
+.congrats{
+  padding: 8rem 0;
+  height: 100vh;
+  text-align: center;
+}
+.congrats p{
+  margin: 0.5rem 0 1.2rem;
+}
+/*========================= ELECTION PAGES AND COMPONETS =====================*/
+.elections{
+  margin: 5rem 0;
+}
+.elections_header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+.elections_menu{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.election{
+  display: grid;
+  grid-template-columns: 17rem auto;
+  align-items: center;
+  background: var(--color-gray-0);
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  border: 0.5rem solid var(--color-gray-0);
+  transition: var(--transition);
+}
+.election_image{
+  max-height: 13rem;
+}
+.election:hover{
+  box-shadow: 0 0.8rem 0.8rem rgba(0,0,0,0.1);
+}
+.election_info{
+  padding: 1rem 2rem;
+}
+.election_info h4{
+  margin-bottom: 0.7rem;
+  color: var(--color-primary);
+}
+.election_cta{
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+/*=========================  ElectionDetails css =====================*/
+.electionDetails{
+  margin: 5rem 0;
+}
+.electionDetails_image{
+  height: 15rem;
+  margin: 1.2rem 0 0.8rem;
+}
+.electionDetails_candidates{
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(15rem,1fr));
+  gap: 3rem;
+  border-top: 2px solid var(--color-gray-200);
+}
+.electionCandidate{
+  background: var(--color-gray-0);
+  border-radius: var(--radius-4);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+.electionCandidate_image{
+  height: 15rem;
+  overflow: hidden;
+}
+.electionCandidate h5{
+  margin:  0.5rem 0 0.3rem;
+}
+.electionCandidate >div:nth-child(2){
+  padding: 1.3rem;
+}
+.electionCandidate_btn{
+  position: absolute;
+  right: 0;
+  top: 0;margin: 1rem;
+  background: var(--color-danger);
+  color: var(--color-gray-0);
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border-radius:0.6rem;
+  display: flex;
+}
+.electionCandidate_btn:hover{
+  background: var(--color-gray-900);
+}
+.add_candidate-btn{
+   background: var(--color-gray-100);
+   border: 2px solid var(--color-primary);
+   border-radius: var(--radius-4);
+   font-size: 5rem;
+   color: var(--color-primary);
+   box-shadow: 0 0.8rem 0.8rem rgba(0,0,0,0.1);
+   transition: var(--transition);
+   display: grid;
+   place-items: center;
+   min-height: 15rem;
+}
+.voters{
+  margin: 6rem 3rem;
+ 
+}
+.voters h2{
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.voters_table{
+  width: 100%;
+}
+.voters_table thead th{
+  text-align: left;
+  padding: 0.7rem 1,5rem;
+}
+.voters_table tbody td{
+  padding: 0.7rem 1.5rem;
+}
+.voters_table tbody tr :nth-child(odd){
+  background: var(--color-gray-0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*=========================  media quaries  =====================*/
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: var(--container-w-sm);
+  }
+  nav {
+    height: 4rem;
+  }
+  .nav_container div {
+    gap: 3rem;
+  }
+  .nav_toggle-btn {
+    display: inline-block;
+  }
+  .nav_container menu {
+    position: fixed;
+    top: 4rem;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    width: 12rem;
+  }
+  .nav_container menu a {
+    background: var(--color-gray-0);
+    color: var(--color-gray-900);
+    border-bottom: 1px solid var(--color-gray-200);
+    width: 100%;
+    display: grid;
+    place-items: center;
+    display: 4rem;
+    box-shadow: -2rem 4rem 2rem rgba(0, 0, 0, 0.1);
+  }
+  .errorPage_container {
+    width: 100%;
+  }
+  .register_container{
+    padding: 3rem 1.5rem;
+  }
+  .results{
+    width: var(--container-w-sm);
+  }
+  .candidates_header{
+    width: var(--container-w-sm);
+  }
+  .modal_content{
+    width: var(--container-w-sm);
+  }
+/*========================= elections media quaries  =====================*/
+  
+  .election{
+    grid-template-columns: 1fr;
+  }
+  .election_info{
+    padding: 2rem 1rem;
+  }
+  .election_image{
+    height: 100%;
+  }
+
+
+.voters_table tbody tr{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.voters_table thead  tr{
+  display: flex;
+  flex-direction: column;
+}
+
+
+}
