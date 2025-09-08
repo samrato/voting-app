@@ -1,25 +1,38 @@
-const express=require("express")
-const cors=require("cors")
-const {connect} =require("mongoose")
-require("dotenv").config()
-const upload =require('express-fileupload')
-const{notFound ,errorHandler}=require("./middleware/errorMiddleware")
-const Routes=require("./routes/Routes")
+const express = require("express");
+const cors = require("cors");
+const { connect } = require("mongoose");
+require("dotenv").config();
+const upload = require("express-fileupload");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const Routes = require("./routes/Routes");
 
-const app=express()
-app.use(express.json({extended: true}))
-app.use(express.urlencoded({extended: true}))
-//
-app.use(cors({credentials :true,origin:["http://localhost:3000"]}))
-app.use(upload)
+const app = express();
 
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({ credentials: true, origin: ["http://localhost:3000"] }));
+app.use(upload());
 
-app.use('/api',Routes)
-app.use(notFound)
-app.use(errorHandler)
+// Routes
+app.use("/api", Routes);
+app.use(notFound);
+app.use(errorHandler);
 
+// Database + Server
+const startServer = async () => {
+  try {
+    await connect(process.env.MONGO_URL);
+    console.log("✅ Database connected successfully");
 
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to connect to DB", err.message);
+    process.exit(1);
+  }
+};
 
-
-
-connect(process.env.MONGO_URL).then(app.listen(process.env.PORT,()=>console.log(`server started and running succesfully on port ${process.env.PORT}`))).catch(err =>console.log(err))
+startServer();
