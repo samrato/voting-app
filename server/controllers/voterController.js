@@ -1,7 +1,6 @@
 const bcrypt=require('bcryptjs')
 const jwt =require('jsonwebtoken')
 const voterModel = require("../models/voterModel");
-const VoterModel=require("../models/voterModel")
 const HttpError=require("../models/voterModel")
 
 // <!-------------REGISTER NEW VOTER -----------!>
@@ -19,9 +18,9 @@ const registerVoter= async(req,res,next)=>{
         const emailExist=await voterModel.findOne({email:newEmail})
         if(emailExist){return next(new HttpError("Email Already exist ",422))}
         // make sure password is six characters 
-        if((password.trim().length)<6){return next(HttpError("Password should be atleast 6 characters",422))}
+        if((password.trim().length)<6){return next(new HttpError("Password should be atleast 6 characters",422))}
         // make sure password and confirm pass are same
-        if(password != password2){return next(HttpError("Password do not match",422))}
+        if(password != password2){return next(new HttpError("Password do not match",422))}
         // hash password
         const salt =await bcrypt.genSalt(10);
         const hashedPassword= await bcrypt.hash(password,salt)
@@ -29,10 +28,10 @@ const registerVoter= async(req,res,next)=>{
         let isAdmin=false;
         if(newEmail=="onyangojuma984@gmail.com"){isAdmin=true}
         // save new voter to the Db
-        const newVoter= await voterModel.create({fullName,email:newEmail,password:hashedPassword,isAdmin}) 
+        await voterModel.create({fullName,email:newEmail,password:hashedPassword,isAdmin}) 
         res.status(201).json(`New voter ${fullName} created`)
 
-    } catch (error) {
+    } catch {
         return next(new HttpError("Voter Registration failed",422))
         
     }
@@ -64,7 +63,7 @@ const loginVoter= async(req,res,next)=>{
         const token=generateTocken({id,isAdmin})
 
         res.json({token,id,votedElections,isAdmin})
-    } catch (error) {
+    } catch {
         return next (new HttpError("Login Failed pleasee check your credentials or try again later ",422))
         
     }
@@ -78,15 +77,23 @@ const getVoter= async(req,res,next)=>{
         const{id}=req.params;
         const voter = await voterModel.findById(id).select("-password")
         res.json(voter)
-    } catch (error) {
+    } catch {
         return next(new HttpError("Could not get the voter ",422))
     }
 }
 
 
+const getCurrentVoter = async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const voter = await voterModel.findById(id).select("-password");
+        res.json(voter);
+    } catch {
+        return next(new HttpError("Could not get the voter ", 422));
+    }
+};
 
 
 
 
-
-module.exports={registerVoter,loginVoter,getVoter};
+module.exports={registerVoter,loginVoter,getVoter, getCurrentVoter};

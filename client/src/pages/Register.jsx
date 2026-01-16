@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../utils/api";
+import { motion } from "framer-motion";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -23,20 +25,7 @@ const Register = () => {
     setError("");
 
     try {
-      const res = await fetch(
-        "https://voting-app-wgsv.onrender.com/api/voters/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData)
-        }
-      );
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Registration failed");
-      }
-
+      await api("/voters/register", "POST", userData);
       navigate("/"); // redirect to login
     } catch (err) {
       setError(err.message);
@@ -45,7 +34,12 @@ const Register = () => {
 
   return (
     <section className="register">
-      <div className="container register_container">
+      <motion.div
+        className="container register_container"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           {error && <p className="form_error-message">{error}</p>}
@@ -86,7 +80,7 @@ const Register = () => {
             Register
           </button>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 };

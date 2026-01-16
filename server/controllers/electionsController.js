@@ -19,7 +19,7 @@ const addElection = async (req, res, next) => {
     if (!title || !description) {
       return next(new HttpError("Fill in all fields", 422));
     }
-    if (req.files.thumbnail) {
+    if (!req.files || !req.files.thumbnail) {
       return next(new HttpError("Choose a thumbnail ", 422));
     }
     const { thumbnail } = req.files;
@@ -36,7 +36,7 @@ const addElection = async (req, res, next) => {
       path.join(__dirname, "..", "uploads", fileName),
       async (err) => {
         if (err) {
-          return next(HttpError(err));
+          return next(new HttpError(err));
         }
         // store image on cloudinary
         const result = await cloudinary.uploader.upload(
@@ -144,8 +144,9 @@ const updateElection = async (req, res, next) => {
     if (!title || !description) {
       return next(new HttpError("Fill in all fields ", 422));
     }
-    if (req.files.thumbnail) {
-      const { thumbnail } = req.files;
+    let thumbnail;
+    if (req.files) {
+       thumbnail = req.files.thumbnail;
     }
     // image size of the thumbnail
     if (thumbnail.size > 1000000) {

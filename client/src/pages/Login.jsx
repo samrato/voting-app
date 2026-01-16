@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useAuth from "../utils/auth";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const { login } = useAuth();
+
 
   const changeInputHandler = (e) => {
     setUserData((prevState) => ({
@@ -18,28 +21,7 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await fetch(
-        "https://voting-app-wgsv.onrender.com/api/voters/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData),
-        }
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "Login failed");
-        return;
-      }
-
-      // Save token and user info
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.id);
-      localStorage.setItem("isAdmin", data.isAdmin);
-
-      navigate("/results"); // redirect after login
+      await login(userData.email, userData.password);
     } catch (err) {
       setError("Something went wrong. Please try again later.");
     }
@@ -47,7 +29,12 @@ const Login = () => {
 
   return (
     <section className="register">
-      <div className="container register_container">
+      <motion.div
+        className="container register_container"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <h2>Sign In </h2>
         <form onSubmit={handleSubmit}>
           {error && <p className="form_error-message">{error}</p>}
@@ -74,7 +61,7 @@ const Login = () => {
             Login
           </button>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 };

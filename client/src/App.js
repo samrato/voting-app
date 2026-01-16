@@ -1,4 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { voteActions } from "./store/vote-slice";
+import api from "./utils/api";
 import RootLayout from "./pages/RootLayout";
 import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
@@ -74,6 +78,23 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = await api("/voters/me");
+          dispatch(voteActions.setCurrentVoter(user));
+        } catch (error) {
+          console.error("Failed to fetch user", error);
+        }
+      }
+    };
+
+    fetchCurrentUser();
+  }, [dispatch]);
   return <RouterProvider router={router} />;
 }
 

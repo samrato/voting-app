@@ -1,5 +1,5 @@
 const{Router}=require("express")
-const {registerVoter,loginVoter,getVoter}=require("../controllers/voterController")
+const {registerVoter,loginVoter,getVoter, getCurrentVoter}=require("../controllers/voterController")
 const{addElection,getElection,getElections,getCandidatesOfElection,getElectionVoters,removeElection,updateElection}=require("../controllers/electionsController")
 
 const{addCandidate,getCandidate,removeCandidate,voteCandidate}=require("../controllers/candidateController")
@@ -12,6 +12,7 @@ const router=Router()
 //========The registration and login in Api =================
 router.post('/voters/register',registerVoter);
 router.post('/voters/login',loginVoter);
+router.get('/voters/me',authMiddleware,getCurrentVoter);
 router.get('/voters/:id',authMiddleware,getVoter);
 
 
