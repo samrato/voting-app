@@ -1,14 +1,25 @@
-import React, {  useState } from 'react'
-import { candidates } from '../data'
+import React, {  useState,useEffect } from 'react'
 import CandidateRating from './CandidateRating'
 import { Link } from 'react-router-dom'
+import api from '../utils/api'
 
 const ResultElection = ({id,thumbnail,title}) => {
    const[totalVotes,setTotalVotes]=useState(521)
-  // get candidates that belong to a particular elections iteration
-  const electionCandidates=candidates.filter(candidate =>{
-    return candidate.election === id 
-  })
+   const [electionCandidates, setElectionCandidates] = useState([]);
+
+   useEffect(() => {
+     const fetchCandidates = async () => {
+       try {
+         const data = await api(`/elections/${id}/candidates`);
+         setElectionCandidates(data);
+       } catch (error) {
+         console.error("Failed to fetch candidates", error);
+       }
+     };
+ 
+     fetchCandidates();
+   }, [id]);
+
   return (
     <article className='result'>
         <header className=' result_header'>
