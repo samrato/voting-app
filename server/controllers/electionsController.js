@@ -1,4 +1,4 @@
-const HttpError = require("../models/voterModel");
+const HttpError = require("../models/errorModel");
 const { v4: uuid } = require("uuid");
 const cloudinary = require("../utils/cloudinary");
 const ElectionModal = require("../models/electionModel");

@@ -206,44 +206,7 @@ nav {
 .theme_toggle-btn:hover {
   opacity: 0.75;
 }
-/*=========================  REGISTER CSS   =====================*/
-.register{
-  display: grid;
-  place-items: center;
-  height: 100vh;
-}
-.register_container{
-  width: 35rem;
-  background: var(--color-gray-0);
-  padding: 3rem;
-  border-radius: var(--radius-5);
-}
-.register_container h2{
-  margin-bottom: 2rem;
-  color: var(--color-primary);
-}
-.register form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.register form input{
-  padding: 0.7rem;
-  background: var(--color-gray-100);
-  border-radius: var(--radius-1);
-  color: var(--color-gray-900);
-}
-.register form p > a{
-  color: var(--color-primary);
-  font-weight: 600;
-}
-.form_error-message{
-  background: var(--color-danger);
-  color: var(--color-gray-0);
-  padding: 0.6rem 1.5rem ;
-  border-radius: var(--radius-1);
-}
-/*=========================  RESULT CSS   =====================*/
+/*=========================  Candidates CSS   =====================*/
 .results{
   margin: 5rem 0;
   width: 58rem;

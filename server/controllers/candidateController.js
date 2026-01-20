@@ -1,12 +1,12 @@
 
-const HttpError = require("../models/voterModel");
+const HttpError = require("../models/errorModel");
 const { v4: uuid } = require("uuid");
 const cloudinary = require("../utils/cloudinary");
 const ElectionModal = require("../models/electionModel");
 const CandidateModal = require("../models/candidateModel");
 const VoterModel = require("../models/voterModel");
 const path = require("path");
-const  mongoose  = require("mongoose");
+const mongoose = require("mongoose");
 //======================= Add new candidate=============
 //========  POST : api/candidates
 // protected(only by an admin )
@@ -123,25 +123,36 @@ const voteCandidate=async(req,res,next)=>{
     try {
         const {id:candidateId}=req.params;
         const{selectedElection}=req.body;
-        // get candidate 
-        const candidate=await CandidateModal.findById(candidateId)
-        const newVoteCount=candidate.voteCount+1;
-        // update candidate vote 
-        await CandidateModal.findByIdAndDelete(candidate,{voteCount:newVoteCount},{new :true})
-        // start session for relationship
-        const sess = await  mongoose .startSession()
-        sess.startTransaction()
-        let voter=await VoterModel.findById(req.user.id)
-        await voter.save({session:sess})
+        // get candidate
+        const voter = await VoterModel.findById(req.user.id);
+        if (!voter) {
+            return next(new HttpError("Voter not found.", 404));
+        }
 
-        let election =await ElectionModal.findById(selectedElection)
-        election.voters.push(voter);
-        voter.votedElections.push(election);
+        if (voter.votedElections.includes(selectedElection)) {
+            return next(new HttpError("You have already voted in this election.", 403));
+        }
 
-        await election.save({session:sess})
-        await voter.save({session:sess})
-        await sess.commitTransaction()
-          res.status(201).json("Vote Casted successfully")
+        const candidate = await CandidateModal.findById(candidateId);
+        if (!candidate) {
+            return next(new HttpError("Candidate not found.", 404));
+        }
+
+        const election = await ElectionModal.findById(selectedElection);
+        if (!election) {
+            return next(new HttpError("Election not found.", 404));
+        }
+
+        candidate.voteCount += 1;
+        await candidate.save();
+
+        election.voters.push(voter._id);
+        await election.save();
+
+        voter.votedElections.push(selectedElection);
+        await voter.save();
+
+        res.status(201).json("Vote Casted successfully");
 
     } catch (error) {
         return next(new HttpError(error));

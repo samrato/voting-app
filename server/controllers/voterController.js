@@ -1,7 +1,7 @@
 const bcrypt=require('bcryptjs')
 const jwt =require('jsonwebtoken')
 const voterModel = require("../models/voterModel");
-const HttpError=require("../models/voterModel")
+const HttpError = require("../models/errorModel");
 
 // <!-------------REGISTER NEW VOTER -----------!>
 // ====== POST :api/voters/register
